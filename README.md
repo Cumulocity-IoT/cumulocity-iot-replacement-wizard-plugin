@@ -30,15 +30,6 @@ In the current implementation no child device support is given since some implem
 - No child device support currently
 - No support if one device owner has multiple devices
 
-### License
-We strongly suggest that you use the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
-If you use this repo as a template the license will be automatically applied to your repo.
-
-If you don't use this template you should select the Apache License on repo creation:
-
-![img_2.png](img_2.png)
-
-If you use open-source 3rd Party Software please check the [license compatibility](https://joinup.ec.europa.eu/collection/eupl/solution/joinup-licensing-assistant/jla-compatibility-checker) 
 
 ### Copyright Header
 
@@ -63,29 +54,12 @@ limitations under the License.
 
 ````
 
----
 
 These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite. Users are free to use, fork and modify them, subject to the license agreement. While Software AG welcomes contributions, we cannot guarantee to include every contribution in the master project.
 
 For more information you can Ask a Question in the [TECH Community Forums](https://tech.forums.softwareag.com/tag/Cumulocity-IoT).
 
 Contact us at [TECHcommunity](mailto:Communities@softwareag.com?subject=Github/SoftwareAG) if you have any questions.
-
----
-
-##Github Settings
-
-There are multiple settings you can make use of in your repository.
-First of all we suggest to enable the Code Security and analysis functionality which includes a [Dependency graph](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph), [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts) and [Dependabot security updates](https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/about-dependabot-security-updates).
-
-![img.png](img.png)
-
-# Questions about this template
-
-If you have any questions or suggestions regarding this template please create an [issue](https://github.com/SoftwareAG/cumulocity-iot-template/issues/new)
-
----
-# PLEASE REPLACE THE PART ABOVE WITH YOUR OWN CONTENT !!!
 
 
 
