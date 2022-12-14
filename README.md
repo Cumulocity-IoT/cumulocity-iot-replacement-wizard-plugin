@@ -77,11 +77,11 @@ Screenshot of data grid picker
      ```
      with
 
-     ```json
-     {
-  "externalId": "9876",
-  "type": "c8y_Serial"
-     }
+      ```json
+    {
+    "externalId": "9876",
+     "type": "c8y_Serial"
+    } 
      ```
      
 
