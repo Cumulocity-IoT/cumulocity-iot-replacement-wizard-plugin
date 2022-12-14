@@ -1,31 +1,32 @@
-# PLEASE REPLACE THE PART BELOW WITH YOUR OWN CONTENT !!!
+# Content
 
----
+- [Overview](#overview)
+- [Quickstart](#quickstart)
 
-# Template for Cumulocity IoT OS Repos
+## Overview
 
-This is a template repo for Cumulocity-IoT related open-source repos at SoftwareAG Organization. It contains basic guidelines for
- - Naming the Repo
- - FOSS Licensing
- - Topics
- - README.md structure
- - GitHub Setting
-
-## How to use this template
-
-Click here [Use this template](https://github.com/SoftwareAG/cumulocity-iot-template/generate) to create a new repo based on this template.
-
-## Naming the Repo
-
-* Use lower case names. Combine words with a "-". Avoid using camelCase or other separators.
-* Follow the pattern: **[productname]-[reponame]-[productfeature]**.
-* Examples for good repo names: "cumulocity-kpi-trend-widget", "cumulocity-hono-microservice"
-* Examples for bad repo names: "C8YPythonAgent", "EPLApps_Samples"
+The replacement wizard allows exchanging a physical device and replaces the virtual representation on platform side. Therefore the user, which needs to be admin, is guides through several steps in order to change replace the device with a new one and keep the history of measurements, events, alarms etc. .
+In the current implementation no child device support is given since some implementation do derive their external id of their parent device.
 
 
-Please make sure that you add a meaningful description to your repo.
+## Requirements
 
-## FOSS Licensing & Copyright
+- Both devices (new and old) needs to be registered to platform
+
+## Steps
+
+- User picks old device object in C8Y with e.g. owner: device_1234, externalID: 1234
+- User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
+- Owner of old device object in C8Y will be changed to new deviceuser. Owner is now device_9876
+- ExternalID of old device object in C8Y of type c8y_Serial will be changed to new externalID. ExternalID is now 9876
+- New device object in C8Y will be deleted
+- Old deviceuser (devic_1234) will be deleted (checking if really a device user before deleting)
+
+
+### Limitations
+
+- No child device support currently
+- No support if one device owner has multiple devices
 
 ### License
 We strongly suggest that you use the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0).
@@ -59,42 +60,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 ````
-
-## Topics
-
-For Cumulocity IoT content please add the topics
-
-* cumulocity-iot
-* iot-analytics
-
-Also add one or multiple topics of the following categories:
-* 'agent' or 'cumulocity-agent'
-* 'webapp' or 'cumulocity-webapp'
-* 'widget' or 'cumulocity-widget'
-* 'client' or 'cumulocity-client'
-* 'cli' or 'cumulocity-cli'
-* 'microservice' or 'cumulocity-microservice'
-* 'example' or 'cumulocity-example'
-* 'tutorial' or 'cumulocity-tutorial'
-* 'simulator' or 'cumulocity-simulator'
-* 'extension' or 'cumulocity-extension'
-* 'documentation' or 'cumulocity-documentation'
-
-Beside that you should add additional topics like 'iot' or others matchen the content of your repo.
-
-## README structure
-
-The README.md should be structured in the following way:
-
-1. Overview about the Repo / Component
-2. Installation
-3. Run / Quick Start
-4. Build
-5. (opt) Release Notes
-6. (opt) Contributing Guidelines (either part of the README or in a separate CONTRIBUTING.md)
-7. Footer to TechCommunity
-
-Please always add the following footer to your README.md
 
 ---
 
