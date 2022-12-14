@@ -1,19 +1,18 @@
 # Content
 
 - [Content](#content)
-  - [Overview](#overview)
-  - [Requirements](#requirements)
-  - [Steps](#steps)
-    - [Limitations](#limitations)
-    - [Copyright Header](#copyright-header)
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Steps](#steps)
+- [Limitations](#limitations)
+- [Copyright Header](#copyright-header)
 
-## Overview
+# Overview
 
 The replacement wizard allows exchanging a physical device and keep the virtual representation on platform side with the full history. Therefore the user, which needs to be admin, is guides through several steps in order to  replace the device with a new one and keep the history of measurements, events, alarms etc. .
 In the current implementation no child device support is given since some implementation do derive their external id of their parent device.
 
-
-## Requirements
+# Requirements
 
 Devices with proper registration implementation need to be availabe within the platform. Additionally:
 
@@ -21,7 +20,9 @@ Devices with proper registration implementation need to be availabe within the p
 - Devices should be turned off during the replacement process
 - Device implementation relays on c8y_Serial as identifier
 
-## Steps
+# Steps
+
+In order to replace a physical device and keep the history several steps and RestAPI calls are required.
 
 <p align="center">
 <img src="resources/sequence_uml.drawio.png"  style="width: 70%;" />
@@ -45,32 +46,83 @@ Devices with proper registration implementation need to be availabe within the p
 3. User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
    
 Screenshot of data grid picker
-   
+
+>Click Next once you have chosen the device.
+>Pop-up: Are you sure that you want to replace the data from the current device with the one selected?
+>Pop-up: This device is currently not supported, because it has child assets.
+
 
 4. ExternalID of new device object in C8Y of type c8y_Serial will be deleted
   
      The externalID of the new device will be removed since the later delete request is asynchron. Otherwise it can not be guaranted that the new physical device send data to the old managed object.
 
+     ```shell
+     DELETE /identity/externalIds/c8y_Serial/{device_name_new}
+     ```
+
 5. ExternalID of old device object in C8Y of type c8y_Serial will be deleted
 
      The externalID of the old device will be removed to prevent getting data from the old physical device.
+
+     ```shell
+     DELETE /identity/externalIds/c8y_Serial/{device_name_old}
+     ```
 
 6. ExternalID of old device object in C8Y of type c8y_Serial will be created with externalID of new physical device. ExternalID is now e.g. 9876.
 
      New physical device now points to the old managed object via the identifier c8y_Serial.
 
+     ```shell
+     POST /identity/globalIds/59720399/externalIds
+     ```
+     with
+
+     ```json
+     {
+  "externalId": "9876",
+  "type": "c8y_Serial"
+     }
+     ```
+     
+
 7. Owner of old device object in C8Y will be changed to new device user. Owner is now device_9876.
    
      Device owner is the only user that is allowed to send data to a device. Thus the new device user needs to be owner of the managed object.
+
+     ```shell
+     PUT /inventory/managedObjects/{internalID_old_device}
+     ```
+
+     with 
+
+     ```json
+    {
+    "id": "{internalID}",
+    "owner": "device_9876"
+    } 
+     ```
 
 8. New device object in C8Y will be deleted
    
      The new device is not needed anymore. However data that was send to the platform between connecting the new device and completly replacing the device will be lost and not migrated.
 
+     ```shell
+     DELETE /inventory/managedObjects/{internalID_new_device}
+     ```
+
 9. Old device user (devic_1234) will be deleted
 
      In order to prevent the old device to send data and the device will be re-created the device user of the old device is deleted. However a check is applied that the user is really just a device user and not a user.
+
+     ```shell
+     DELETE /user/{tenantid}/users/device_1234 
+     ```
   
+10. Completion dialog
+    
+>The replacement was successfully completed! Please turn the device on now.
+>The replaced device was disconnected from the platform. If you want to use it again for another purpose, please register the device via the device management.
+
 Additionally for documentation purposes the following will be done:
 
 - Audit entry will be created
@@ -105,13 +157,13 @@ Additionally for documentation purposes the following will be done:
      }
      ```
 
-### Limitations
+# Limitations
 
 - No child device support currently
 - No support if one device owner has multiple devices
 
 
-### Copyright Header
+# Copyright Header
 
 Each file that contains code from yourself should contain a copyright header in the following format:
 ````
