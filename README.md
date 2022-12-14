@@ -11,19 +11,39 @@ In the current implementation no child device support is given since some implem
 
 ## Requirements
 
-- Both devices (new and old) needs to be registered to platform
+- Both devices (new and old) needs to be registered to platform and be able to send data
+- Devices should be turned off during the replacement process
 
 ## Steps
 
+<p align="center">
+<img src="resources/sequence_uml.drawio.png"  style="width: 70%;" />
+</p>
+<br/>
+
 - User picks old device object in C8Y with e.g. owner: device_1234, externalID: 1234
 - User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
+- ExternalID of new device object in C8Y of type c8y_Serial will be deleted
+- ExternalID of old device object in C8Y of type c8y_Serial will be deleted
+- ExternalID of old device object in C8Y of type c8y_Serial will be created with externalID of new physical device. ExternalID is now e.g. 9876
 - Owner of old device object in C8Y will be changed to new deviceuser. Owner is now device_9876
-- ExternalID of old device object in C8Y of type c8y_Serial will be changed to new externalID. ExternalID is now 9876
 - New device object in C8Y will be deleted
 - Old deviceuser (devic_1234) will be deleted (checking if really a device user before deleting)
+  
+Additionally for documentation purposes the following will be done:
+
 - Audit entry will be created
+     ```json
+     {}
+     ```
 - Event will be created
+     ```json
+     {}
+     ```
 - Managed object will be updated with fragment about latest replacement
+     ```json
+     {}
+     ```
 
 ### Limitations
 
