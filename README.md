@@ -21,7 +21,9 @@ In the current implementation no child device support is given since some implem
 - ExternalID of old device object in C8Y of type c8y_Serial will be changed to new externalID. ExternalID is now 9876
 - New device object in C8Y will be deleted
 - Old deviceuser (devic_1234) will be deleted (checking if really a device user before deleting)
-
+- Audit entry will be created
+- Event will be created
+- Managed object will be updated with fragment about latest replacement
 
 ### Limitations
 
