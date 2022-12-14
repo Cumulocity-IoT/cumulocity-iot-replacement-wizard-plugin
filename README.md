@@ -122,6 +122,7 @@ Screenshot of data grid picker
     
 >The replacement was successfully completed! Please turn the device on now.
 >The replaced device was disconnected from the platform. If you want to use it again for another purpose, please register the device via the device management.
+>Depending on your use case it might be necessary to factory reset your device. 
 
 Additionally for documentation purposes the following will be done:
 
