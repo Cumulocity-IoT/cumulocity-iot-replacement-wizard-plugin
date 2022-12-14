@@ -1,18 +1,25 @@
 # Content
 
-- [Overview](#overview)
-- [Quickstart](#quickstart)
+- [Content](#content)
+  - [Overview](#overview)
+  - [Requirements](#requirements)
+  - [Steps](#steps)
+    - [Limitations](#limitations)
+    - [Copyright Header](#copyright-header)
 
 ## Overview
 
-The replacement wizard allows exchanging a physical device and replaces the virtual representation on platform side. Therefore the user, which needs to be admin, is guides through several steps in order to change replace the device with a new one and keep the history of measurements, events, alarms etc. .
+The replacement wizard allows exchanging a physical device and keep the virtual representation on platform side with the full history. Therefore the user, which needs to be admin, is guides through several steps in order to  replace the device with a new one and keep the history of measurements, events, alarms etc. .
 In the current implementation no child device support is given since some implementation do derive their external id of their parent device.
 
 
 ## Requirements
 
+Devices with proper registration implementation need to be availabe within the platform. Additionally:
+
 - Both devices (new and old) needs to be registered to platform and be able to send data
 - Devices should be turned off during the replacement process
+- Device implementation relays on c8y_Serial as identifier
 
 ## Steps
 
@@ -21,14 +28,48 @@ In the current implementation no child device support is given since some implem
 </p>
 <br/>
 
-- User picks old device object in C8Y with e.g. owner: device_1234, externalID: 1234
-- User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
-- ExternalID of new device object in C8Y of type c8y_Serial will be deleted
-- ExternalID of old device object in C8Y of type c8y_Serial will be deleted
-- ExternalID of old device object in C8Y of type c8y_Serial will be created with externalID of new physical device. ExternalID is now e.g. 9876
-- Owner of old device object in C8Y will be changed to new deviceuser. Owner is now device_9876
-- New device object in C8Y will be deleted
-- Old deviceuser (devic_1234) will be deleted (checking if really a device user before deleting)
+1. User picks old device object in C8Y with e.g. owner: device_1234, externalID: 1234
+   
+   This can be done for example while adding the wizard to the more section within the device management, such that the old device object is picked via the device list.
+
+   Screenshot of more -> replace device
+
+2. User confirms the text dialog with all explanations about edge cases.
+   
+
+>Welcome to the Replacement Wizard!
+>We will guide you through the process of the replacing a device without losing the history and the device information. Before starting the replacement process both devices, the old and the new one, must be turned on and connected to Cumulocity. The wizard will then ask you to select the new device to which you want the data to be transferred.
+>Now you can turn off both devices again in order to avoid any inconsistencies during the process.
+>Be aware: Devices with child assets are currently not supported. The replacement is not supported if the device owner is used for multiple devices.
+
+3. User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
+   
+Screenshot of data grid picker
+   
+
+4. ExternalID of new device object in C8Y of type c8y_Serial will be deleted
+  
+     The externalID of the new device will be removed since the later delete request is asynchron. Otherwise it can not be guaranted that the new physical device send data to the old managed object.
+
+5. ExternalID of old device object in C8Y of type c8y_Serial will be deleted
+
+     The externalID of the old device will be removed to prevent getting data from the old physical device.
+
+6. ExternalID of old device object in C8Y of type c8y_Serial will be created with externalID of new physical device. ExternalID is now e.g. 9876.
+
+     New physical device now points to the old managed object via the identifier c8y_Serial.
+
+7. Owner of old device object in C8Y will be changed to new device user. Owner is now device_9876.
+   
+     Device owner is the only user that is allowed to send data to a device. Thus the new device user needs to be owner of the managed object.
+
+8. New device object in C8Y will be deleted
+   
+     The new device is not needed anymore. However data that was send to the platform between connecting the new device and completly replacing the device will be lost and not migrated.
+
+9. Old device user (devic_1234) will be deleted
+
+     In order to prevent the old device to send data and the device will be re-created the device user of the old device is deleted. However a check is applied that the user is really just a device user and not a user.
   
 Additionally for documentation purposes the following will be done:
 
@@ -37,9 +78,9 @@ Additionally for documentation purposes the following will be done:
      {"activity": "Device war replaced",
       "application": "devicemanagement",
       "source": {
-        "id": "OLDDEVICEID",
+        "id": "externalID_old",
       },
-      "text": "Device xyz was replaced with abc",
+      "text": "Device {externalID_old} was replaced with {externalID_new}",
       "time": "2022-11-22T12:54:27.234Z",
       "type": "Inventory",
       "user": "murat.bayram@softwareag.com"
@@ -50,9 +91,9 @@ Additionally for documentation purposes the following will be done:
      {
       "c8y_device_replacement": {},
       "source": {
-        "id": "OLDDEVICEID"
+        "id": "externalID_old"
       },
-      "text": "Device xyz was replaced with device abc",
+      "text": "Device {externalID_old} was replaced with {externalID_new}",
       "time": "2022-12-13T10:55:29.000Z",
       "type": "c8y_device_replacement"
     }
