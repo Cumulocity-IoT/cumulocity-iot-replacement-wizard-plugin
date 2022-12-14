@@ -34,15 +34,34 @@ Additionally for documentation purposes the following will be done:
 
 - Audit entry will be created
      ```json
-     {}
+     {"activity": "Device war replaced",
+      "application": "devicemanagement",
+      "source": {
+        "id": "OLDDEVICEID",
+      },
+      "text": "Device xyz was replaced with abc",
+      "time": "2022-11-22T12:54:27.234Z",
+      "type": "Inventory",
+      "user": "murat.bayram@softwareag.com"
+      }
      ```
 - Event will be created
      ```json
-     {}
+     {
+      "c8y_device_replacement": {},
+      "source": {
+        "id": "OLDDEVICEID"
+      },
+      "text": "Device xyz was replaced with device abc",
+      "time": "2022-12-13T10:55:29.000Z",
+      "type": "c8y_device_replacement"
+    }
      ```
 - Managed object will be updated with fragment about latest replacement
      ```json
-     {}
+     {
+     "lastReplacement": {"time": "2022-12-13T10:55:29.000Z", "previousExternalID": "abc", "user": "murat.bayram@softwareag.com"}   
+     }
      ```
 
 ### Limitations
