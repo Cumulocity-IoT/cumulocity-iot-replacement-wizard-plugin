@@ -33,7 +33,10 @@ In order to replace a physical device and keep the history several steps and Res
    
    This can be done for example while adding the wizard to the more section within the device management, such that the old device object is picked via the device list.
 
-   Screenshot of more -> replace device
+   <p align="center">
+<img src="resources/Old-device.png"  style="width: 70%;" />
+</p>
+<br/>
 
 2. User confirms the text dialog with all explanations about edge cases.
    
@@ -43,16 +46,33 @@ In order to replace a physical device and keep the history several steps and Res
 >Now you can turn off both devices again in order to avoid any inconsistencies during the process.
 >Be aware: Devices with child assets are currently not supported. The replacement is not supported if the device owner is used for multiple devices.
 
+
+   <p align="center">
+<img src="resources/Welcome.png"  style="width: 70%;" />
+</p>
+<br/>
+
 3. User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
-   
-Screenshot of data grid picker
 
 >Click Next once you have chosen the device.
 >Pop-up: Are you sure that you want to replace the data from the current device with the one selected?
 >Pop-up: This device is currently not supported, because it has child assets.
 
+   <p align="center">
+<img src="resources/New-device.png"  style="width: 70%;" />
+</p>
+<br/>
 
-4. ExternalID of new device object in C8Y of type c8y_Serial will be deleted
+The user has to confirm that he is really sure about that.
+
+
+   <p align="center">
+<img src="resources/Confirmation-dialog.png"  style="width: 70%;" />
+</p>
+<br/>
+
+
+1. ExternalID of new device object in C8Y of type c8y_Serial will be deleted
   
      The externalID of the new device will be removed since the later delete request is asynchron. Otherwise it can not be guaranted that the new physical device send data to the old managed object.
 
@@ -60,7 +80,7 @@ Screenshot of data grid picker
      DELETE /identity/externalIds/c8y_Serial/{device_name_new}
      ```
 
-5. ExternalID of old device object in C8Y of type c8y_Serial will be deleted
+2. ExternalID of old device object in C8Y of type c8y_Serial will be deleted
 
      The externalID of the old device will be removed to prevent getting data from the old physical device.
 
@@ -68,7 +88,7 @@ Screenshot of data grid picker
      DELETE /identity/externalIds/c8y_Serial/{device_name_old}
      ```
 
-6. ExternalID of old device object in C8Y of type c8y_Serial will be created with externalID of new physical device. ExternalID is now e.g. 9876.
+3. ExternalID of old device object in C8Y of type c8y_Serial will be created with externalID of new physical device. ExternalID is now e.g. 9876.
 
      New physical device now points to the old managed object via the identifier c8y_Serial.
 
@@ -123,6 +143,12 @@ Screenshot of data grid picker
 >The replacement was successfully completed! Please turn the device on now.
 >The replaced device was disconnected from the platform. If you want to use it again for another purpose, please register the device via the device management.
 >Depending on your use case it might be necessary to factory reset your device. 
+
+
+   <p align="center">
+<img src="resources/Confirmation.png"  style="width: 70%;" />
+</p>
+<br/>
 
 Additionally for documentation purposes the following will be done:
 
