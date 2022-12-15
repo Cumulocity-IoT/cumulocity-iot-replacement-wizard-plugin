@@ -65,29 +65,29 @@ sequenceDiagram
     participant C8Y Backend
     Bob ->> Service Technician: Pick device to exchange
     Service Technician ->> UI(Wizard): more -> replace device
-    UI(Wizard) ->> Service Technician: Wizard modal opens
+    UI(Wizard) -->> Service Technician: Wizard modal opens
     Service Technician ->> UI(Wizard): confirm dialog
     UI(Wizard) ->> C8Y Backend: Request all devices
-    C8Y Backend ->> UI(Wizard): Response
-    UI(Wizard) ->> Service Technician: Data grid will all devices
+    C8Y Backend -->> UI(Wizard): Response
+    UI(Wizard) -->> Service Technician: Data grid will all devices
     Service Technician ->> UI(Wizard): Pick new device
-    UI(Wizard) ->> Service Technician: Confirm dialog
+    UI(Wizard) -->> Service Technician: Confirm dialog
     Service Technician ->> UI(Wizard): Confirm
     UI(Wizard) ->> C8Y Backend: Change device owner of managed object of old device
-    C8Y Backend ->> UI(Wizard): Response
+    C8Y Backend -->> UI(Wizard): Response
     UI(Wizard) ->> C8Y Backend: Change device externalId of managed object of old device to new externalId
-    C8Y Backend ->> UI(Wizard): Response
+    C8Y Backend -->> UI(Wizard): Response
     UI(Wizard) ->> C8Y Backend: Delete managed object of new device
-    C8Y Backend ->> UI(Wizard): Response
+    C8Y Backend -->> UI(Wizard): Response
     UI(Wizard) ->> C8Y Backend: Delete device user
-    C8Y Backend ->> UI(Wizard): Response
+    C8Y Backend -->> UI(Wizard): Response
     UI(Wizard) ->> C8Y Backend: Create audit entry
-    C8Y Backend ->> UI(Wizard): Response
+    C8Y Backend -->> UI(Wizard): Response
     UI(Wizard) ->> C8Y Backend: Create event
-    C8Y Backend ->> UI(Wizard): Response
+    C8Y Backend -->> UI(Wizard): Response
     UI(Wizard) ->> C8Y Backend: Update managed object of device
-    C8Y Backend ->> UI(Wizard): Response
-    UI(Wizard) ->> Service Technician: Completion dialog
+    C8Y Backend -->> UI(Wizard): Response
+    UI(Wizard) -->> Service Technician: Completion dialog
 
 ```
 <br>
