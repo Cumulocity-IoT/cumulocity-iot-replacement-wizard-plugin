@@ -6,6 +6,7 @@
     "start": "c8ycli server",
     "start:shell": "c8ycli server --shell devicemanagement",
     "build": "c8ycli build",
+    "build:ci": "c8ycli build --ci",
     "deploy": "c8ycli deploy",
     "postinstall": "ngcc"
   },
