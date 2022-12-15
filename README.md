@@ -40,13 +40,12 @@ Select the binaries and wait until it is uploaded.
 After succesful upload go to "All Applications" and click on "Add Application". Select "Duplicate existing application"
 and afterwards "Device Manegement".
 
-
 <p align="center">
 <img src="resources/Duplicate-app.png" style="width: 40%;" />
 </p>
 <br/>
 
-Now select the cloned Device Management App and go to the "Plugin" Tab. Click on "Install Plugin" and select "MQTT configuration plugin"
+Now select the cloned Device Management App and go to the "Plugin" Tab. Click on "Install Plugin" and select "replacment wizard plugin"
 
 
 <p align="center">
