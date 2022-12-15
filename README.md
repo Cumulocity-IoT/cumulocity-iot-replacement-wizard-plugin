@@ -33,10 +33,10 @@ In order to replace a physical device and keep the history several steps and Res
    
    This can be done for example while adding the wizard to the more section within the device management, such that the old device object is picked via the device list.
 
-   <p align="center">
-<img src="resources/Old-device.png"  style="width: 70%;" />
-</p>
-<br/>
+     <p align="center">
+     <img src="resources/Old-device.png"  style="width: 70%;" />
+     </p>
+     <br/>
 
 2. User confirms the text dialog with all explanations about edge cases.
    
@@ -165,6 +165,12 @@ Additionally for documentation purposes the following will be done:
       "user": "murat.bayram@softwareag.com"
       }
      ```
+     <p align="center">
+     <img src="resources/Audit.png"  style="width: 70%;" />
+     </p>
+     <br/>
+
+
 - Event will be created
      ```json
      {
@@ -177,12 +183,21 @@ Additionally for documentation purposes the following will be done:
       "type": "c8y_device_replacement"
     }
      ```
+
+     <p align="center">
+     <img src="resources/Event.png"  style="width: 70%;" />
+     </p>
+     <br/>
 - Managed object will be updated with fragment about latest replacement
      ```json
      {
      "lastReplacement": {"time": "2022-12-13T10:55:29.000Z", "previousExternalID": "abc", "user": "murat.bayram@softwareag.com"}   
      }
      ```
+     <p align="center">
+     <img src="resources/MO-update.png"  style="width: 70%;" />
+     </p>
+     <br/>
 
 # Limitations
 
