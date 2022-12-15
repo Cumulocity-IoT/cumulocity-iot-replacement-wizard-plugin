@@ -201,8 +201,31 @@ Additionally for documentation purposes the following will be done:
 
 # Limitations
 
-- No child device support currently
-- No support if one device owner has multiple devices
+1. No child device support currently
+
+Since in some cases child devices could be implemented that way that they derive their externalId from their parent device it is hard to detect that since any pattern can be used. However thats the reason why in that stage child devices are not supported yet. A banner will indicate that the device that wants to be replaced contains child devices.
+
+
+<p align="center">
+     <img src="resources/Child-devices.png"  style="width: 70%;" />
+     </p>
+     <br/>
+
+This might change in the future and would require that all child devices need to be manually checked within the wizard as well.
+
+2. No support if one device owner has multiple devices
+
+Since the device user is deleted in order to prevent the old device to re-create itself on platorm side. However in some case customers might share device users for multiple devices although this is not recommended. However to prevent bricking devices the wizard does perform the replacement as soon as it detects that the same device user is used for more than one device.
+It is also checked whether the owner is a device user and not a standard user.
+
+<p align="center">
+     <img src="resources/Device-user.png"  style="width: 70%;" />
+     </p>
+     <br/>
+
+
+These logic could also be used as a security check for proper implementation.
+
 
 
 # Copyright Header
