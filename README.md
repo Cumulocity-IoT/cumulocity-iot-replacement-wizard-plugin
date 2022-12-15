@@ -5,7 +5,7 @@
 - [Requirements](#requirements)
 - [Steps](#steps)
 - [Limitations](#limitations)
-- [Copyright Header](#copyright-header)
+- [Copyright](#copyright)
 
 # Overview
 
@@ -228,9 +228,8 @@ These logic could also be used as a security check for proper implementation.
 
 
 
-# Copyright Header
+# Copyright
 
-Each file that contains code from yourself should contain a copyright header in the following format:
 ````
 Copyright (c) 2022 Software AG, Darmstadt, Germany and/or Software AG USA Inc., Reston, VA, USA,
 and/or its subsidiaries and/or its affiliates and/or their licensors.
