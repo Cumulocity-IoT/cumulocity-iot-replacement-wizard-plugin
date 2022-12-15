@@ -3,6 +3,7 @@
 - [Content](#content)
 - [Overview](#overview)
 - [Requirements](#requirements)
+- [Installation](#installation)
 - [Steps](#steps)
 - [Limitations](#limitations)
 - [Copyright](#copyright)
@@ -19,6 +20,39 @@ Devices with proper registration implementation need to be availabe within the p
 - Both devices (new and old) needs to be registered to platform and be able to send data
 - Devices should be turned off during the replacement process
 - Device implementation relays on c8y_Serial as identifier
+
+# Installation
+
+You need to install the plugin for the device management application to your Cumulocity IoT Tenant:
+
+
+The plugin is provided as binaries in [Releases](https://github.com/SoftwareAG/cumulocity-iot-replacement-wizard-plugin/releases).
+
+To install the plugin go to the Adminstration App -> Ecosystem -> Packages and click on "Add Application" on the top right.
+
+> **_NOTE:_** If you don't see the Packages Menu you have to add "?beta=true" in your URL.
+> Example: {{url}}/apps/administration?beta=true
+
+Select the binaries and wait until it is uploaded.
+
+> **_NOTE:_** We need to clone the Device Management app to add the plugin to it
+
+After succesful upload go to "All Applications" and click on "Add Application". Select "Duplicate existing application"
+and afterwards "Device Manegement".
+
+
+<p align="center">
+<img src="resources/Duplicate-app.png" style="width: 40%;" />
+</p>
+<br/>
+
+Now select the cloned Device Management App and go to the "Plugin" Tab. Click on "Install Plugin" and select "MQTT configuration plugin"
+
+
+<p align="center">
+<img src="resources/Plugin-installed.png" style="width: 50%;" />
+</p>
+<br/>
 
 # Steps
 
