@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   AuditRecordType,
   AuditService,
@@ -10,22 +10,32 @@ import {
   UserService
 } from '@c8y/client';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { AlertService, AppStateService, C8yStepper, ModalService } from '@c8y/ngx-components';
-import { DeviceGridComponent } from '@c8y/ngx-components/device-grid';
+import { ActionControl, AlertService, AppStateService, C8yStepper, gettext, ModalService } from '@c8y/ngx-components';
 import { DeviceReplacementActionBarService } from '../device-replacement-action-bar.service';
 
 @Component({
   selector: 'c8y-device-replacement-wizard',
   templateUrl: './device-replacement-wizard.component.html'
 })
-export class DeviceReplacementWizardComponent implements AfterViewInit {
-  @ViewChild(DeviceGridComponent, { static: false })
-  dataGrid: DeviceGridComponent;
+export class DeviceReplacementWizardComponent {
   @ViewChild(C8yStepper, { static: true })
   stepper: C8yStepper;
   deviceToBeReplaced: IManagedObject;
   replacementDevice: IManagedObject;
   loading = false;
+
+  actionControls: ActionControl[] = [
+    {
+      type: 'asd',
+      callback: item => {
+        this.deviceSelected(item as IManagedObject);
+      },
+      icon: 'replace',
+      text: 'Use as replacement'
+    }
+  ];
+
+  baseQuery: any;
 
   constructor(
     private modal: BsModalRef,
@@ -40,23 +50,9 @@ export class DeviceReplacementWizardComponent implements AfterViewInit {
     private appState: AppStateService
   ) {
     this.deviceToBeReplaced = this.factory.context;
-  }
-
-  ngAfterViewInit(): void {
-    this.dataGrid.actionControls = [
-      {
-        type: 'asd',
-        callback: item => {
-          this.deviceSelected(item as IManagedObject);
-        },
-        icon: 'replace',
-        text: 'Use as replacement'
-      }
-    ];
-
-    this.dataGrid.baseQuery = {
+    this.baseQuery = {
       __not: {
-        softwareType: {
+        owner: {
           __eq: this.deviceToBeReplaced.owner
         }
       }
@@ -64,7 +60,9 @@ export class DeviceReplacementWizardComponent implements AfterViewInit {
   }
 
   async deviceSelected(device: IManagedObject) {
-    if (await this.isValidDevice(device)) {
+    const validNewDevice = await this.isValidDevice(device);
+    const validDeviceToBeReplaced = await this.isValidDevice(this.deviceToBeReplaced);
+    if (validNewDevice && validDeviceToBeReplaced) {
       try {
         await this.modalService.confirm(
           'Replacement',
@@ -86,9 +84,13 @@ export class DeviceReplacementWizardComponent implements AfterViewInit {
         return;
       }
       this.stepper.next();
-    } else {
+    } else if (!validNewDevice) {
       this.alertService.info(
-        `This device is currently not supported, because it has child assets.`
+        gettext(`This device is currently not supported, because it has child assets.`)
+      );
+    } else if (!validDeviceToBeReplaced) {
+      this.alertService.info(
+        gettext(`The device selected for replacement is currently not supported, because it has child assets.`)
       );
     }
   }

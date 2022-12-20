@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IManagedObject } from '@c8y/client';
 import { ActionBarItem, ExtensionFactory } from '@c8y/ngx-components';
 import { DeviceReplacementActionBarButtonComponent } from './device-replacement-action-bar-button/device-replacement-action-bar-button.component';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class DeviceReplacementActionBarService implements ExtensionFactory<ActionBarItem> {
   private deviceRegex = new RegExp(/\/device\/\d+/);
   context: IManagedObject;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private injector: Injector) {}
 
   get(activatedRoute?: ActivatedRoute): ActionBarItem | ActionBarItem[] {
     if (this.deviceRegex.test(this.router.url)) {
@@ -17,10 +17,11 @@ export class DeviceReplacementActionBarService implements ExtensionFactory<Actio
       this.context = contextData;
       const action: ActionBarItem = {
         placement: 'more',
-        template: DeviceReplacementActionBarButtonComponent,
-        priority: 0
+        component: DeviceReplacementActionBarButtonComponent,
+        priority: 0,
+        injector: this.injector
       };
-      return action
+      return action;
     }
     return [];
   }

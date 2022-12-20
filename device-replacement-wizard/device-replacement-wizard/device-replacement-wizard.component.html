@@ -18,28 +18,32 @@
     <cdk-step state="welcome" label="Introduction">
       <div class="modal-inner-scroll">
         <div class="p-16">
-          <p>We will guide you through the process of the replacing a device without losing the history and the device information.</p>
+          <p translate>We will guide you through the process of the replacing a device without losing the history and the device information.</p>
           <ul>
-            <li>Before starting the replacement process both devices, the old and the new one, must be turned on and connected to Cumulocity.</li>
-            <li>The wizard will then ask you to select the new device to which you want the data to be transferred.</li>
-            <li>Now you can turn off both devices again in order to avoid any inconsistencies during the process.</li>
+            <li translate>Before starting the replacement process both devices, the old and the new one, must be turned on and connected to Cumulocity.</li>
+            <li translate>The wizard will then ask you to select the new device to which you want the data to be transferred.</li>
+            <li translate>Now you can turn off both devices again in order to avoid any inconsistencies during the process.</li>
           </ul>
-          <p><b>Be aware</b>: Devices with child assets are currently not supported. The replacement is not supported if the device owner is used for multiple devices.</p>
+          <p translate><b>Be aware</b>: Devices with child assets are currently not supported. The replacement is not supported if the device owner is used for multiple devices.</p>
         </div>
       </div>
       <c8y-stepper-buttons
         (onNext)="continue()"
         (onCancel)="cancel()"
-        [labels]="{ next: 'Continue', cancel: 'Cancel' }"
+        [labels]="{ next: 'Replace' | translate, cancel: 'Cancel' | translate }"
       ></c8y-stepper-buttons>
     </cdk-step>
     <cdk-step state="deviceSelect" label="New device">
       <div class="modal-inner-scroll">
-        <c8y-device-grid></c8y-device-grid>
+        <c8y-device-grid
+          [title]="'Replacement device' | translate"
+          [actionControls]="actionControls"
+          [baseQuery]="baseQuery"
+        ></c8y-device-grid>
       </div>
       <c8y-stepper-buttons
         (onCancel)="cancel()"
-        [labels]="{ cancel: 'Cancel' }"
+        [labels]="{ cancel: 'Cancel' | translate }"
       ></c8y-stepper-buttons>
     </cdk-step>
 
@@ -49,13 +53,13 @@
           [size]="84"
           [vertical]="true"
           [type]="'success'"
-          [text]="'Device replaced!'"
+          [text]="'Device replaced!' | translate"
         ></c8y-operation-result>
       </div>
 
       <c8y-stepper-buttons
         (onBack)="close()"
-        [labels]="{ back: 'Close' }"
+        [labels]="{ back: 'Close' | translate }"
       ></c8y-stepper-buttons>
     </cdk-step>
   </c8y-stepper>
