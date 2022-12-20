@@ -48,7 +48,7 @@ jobs:
         run: npm run build:ci --if-present
 
       - name: Upload Plugin Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: device-replacement-wizard-plugin-${{ env.C8Y_VERSION }}-${{ github.event.number }}-${{ github.run_id }}
           path: dist/apps/device-replacement-wizard-plugin/
