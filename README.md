@@ -40,18 +40,11 @@ Select the binaries and wait until it is uploaded.
 After succesful upload go to "All Applications" and click on "Add Application". Select "Duplicate existing application"
 and afterwards "Device Manegement".
 
-<p align="center">
-<img src="resources/Duplicate-app.png" style="width: 40%;" />
-</p>
-<br/>
+![](resources/Duplicate-app.png)
 
 Now select the cloned Device Management App and go to the "Plugin" Tab. Click on "Install Plugin" and select "replacment wizard plugin"
 
-
-<p align="center">
-<img src="resources/Plugin-installed.png" style="width: 50%;" />
-</p>
-<br/>
+![](resources/Plugin-installed.png)
 
 # Steps
 
@@ -97,10 +90,7 @@ sequenceDiagram
    
    This can be done for example while adding the wizard to the more section within the device management, such that the old device object is picked via the device list.
 
-     <p align="center">
-     <img src="resources/Old-device.png"  style="width: 70%;" />
-     </p>
-     <br/>
+     ![](resources/Old-device.png)
 
 2. User confirms the text dialog with all explanations about edge cases.
    
@@ -110,11 +100,7 @@ sequenceDiagram
 >Now you can turn off both devices again in order to avoid any inconsistencies during the process.
 >Be aware: Devices with child assets are currently not supported. The replacement is not supported if the device owner is used for multiple devices.
 
-
-   <p align="center">
-<img src="resources/Welcome.png"  style="width: 70%;" />
-</p>
-<br/>
+![](resources/Welcome.png)
 
 3. User picks new device object in C8Y with e.g. owner:device_9876, externalID: 9876
 
@@ -122,18 +108,11 @@ sequenceDiagram
 >Pop-up: Are you sure that you want to replace the data from the current device with the one selected?
 >Pop-up: This device is currently not supported, because it has child assets.
 
-   <p align="center">
-<img src="resources/New-device.png"  style="width: 70%;" />
-</p>
-<br/>
+![](resources/New-device.png)
 
 The user has to confirm that he is really sure about that.
 
-
-   <p align="center">
-<img src="resources/Confirmation-dialog.png"  style="width: 70%;" />
-</p>
-<br/>
+![](resources/Confirmation-dialog.png)
 
 
 1. ExternalID of new device object in C8Y of type c8y_Serial will be deleted
@@ -208,11 +187,7 @@ The user has to confirm that he is really sure about that.
 >The replaced device was disconnected from the platform. If you want to use it again for another purpose, please register the device via the device management.
 >Depending on your use case it might be necessary to factory reset your device. 
 
-
-   <p align="center">
-<img src="resources/Confirmation.png"  style="width: 70%;" />
-</p>
-<br/>
+![](resources/Confirmation.png)
 
 Additionally for documentation purposes the following will be done:
 
@@ -229,10 +204,7 @@ Additionally for documentation purposes the following will be done:
       "user": "murat.bayram@softwareag.com"
       }
      ```
-     <p align="center">
-     <img src="resources/Audit.png"  style="width: 70%;" />
-     </p>
-     <br/>
+     ![](resources/Audit.png)
 
 
 - Event will be created
@@ -247,21 +219,15 @@ Additionally for documentation purposes the following will be done:
       "type": "c8y_device_replacement"
     }
      ```
+     ![](resources/Event.png)
 
-     <p align="center">
-     <img src="resources/Event.png"  style="width: 70%;" />
-     </p>
-     <br/>
 - Managed object will be updated with fragment about latest replacement
      ```json
      {
      "lastReplacement": {"time": "2022-12-13T10:55:29.000Z", "previousExternalID": "abc", "user": "murat.bayram@softwareag.com"}   
      }
      ```
-     <p align="center">
-     <img src="resources/MO-update.png"  style="width: 70%;" />
-     </p>
-     <br/>
+     ![](resources/MO-update.png)
 
 # Limitations
 
@@ -269,11 +235,7 @@ Additionally for documentation purposes the following will be done:
 
 Since in some cases child devices could be implemented that way that they derive their externalId from their parent device it is hard to detect that since any pattern can be used. However thats the reason why in that stage child devices are not supported yet. A banner will indicate that the device that wants to be replaced contains child devices.
 
-
-<p align="center">
-     <img src="resources/Child-devices.png"  style="width: 70%;" />
-     </p>
-     <br/>
+![](resources/Child-devices.png)
 
 This might change in the future and would require that all child devices need to be manually checked within the wizard as well.
 
@@ -282,10 +244,7 @@ This might change in the future and would require that all child devices need to
 Since the device user is deleted in order to prevent the old device to re-create itself on platorm side. However in some case customers might share device users for multiple devices although this is not recommended. However to prevent bricking devices the wizard does perform the replacement as soon as it detects that the same device user is used for more than one device.
 It is also checked whether the owner is a device user and not a standard user.
 
-<p align="center">
-     <img src="resources/Device-user.png"  style="width: 70%;" />
-     </p>
-     <br/>
+![](resources/Device-user.png)
 
 
 These logic could also be used as a security check for proper implementation.
