@@ -28,7 +28,7 @@ You need to install the plugin for the device management application to your Cum
 
 The plugin is provided as binaries in [Releases](https://github.com/SoftwareAG/cumulocity-iot-replacement-wizard-plugin/releases).
 
-To install the plugin go to the Adminstration App -> Ecosystem -> Packages and click on "Add Application" on the top right.
+To install the plugin go to the Administration App -> Ecosystem -> Packages and click on "Add Application" on the top right.
 
 > **_NOTE:_** If you don't see the Packages Menu you have to add "?beta=true" in your URL.
 > Example: {{url}}/apps/administration?beta=true
@@ -38,11 +38,11 @@ Select the binaries and wait until it is uploaded.
 > **_NOTE:_** We need to clone the Device Management app to add the plugin to it
 
 After succesful upload go to "All Applications" and click on "Add Application". Select "Duplicate existing application"
-and afterwards "Device Manegement".
+and afterwards "Device Management".
 
 ![](resources/Duplicate-app.png)
 
-Now select the cloned Device Management App and go to the "Plugin" Tab. Click on "Install Plugin" and select "replacment wizard plugin"
+Now select the cloned Device Management App and go to the "Plugin" Tab. Click on "Install Plugin" and select "replacement wizard plugin"
 
 ![](resources/Plugin-installed.png)
 
@@ -117,7 +117,7 @@ The user has to confirm that he is really sure about that.
 
 1. ExternalID of new device object in C8Y of type c8y_Serial will be deleted
   
-     The externalID of the new device will be removed since the later delete request is asynchron. Otherwise it can not be guaranted that the new physical device send data to the old managed object.
+     The externalID of the new device will be removed since the later delete request is asynchron. Otherwise it can not be guaranteed that the new physical device send data to the old managed object.
 
      ```shell
      DELETE /identity/externalIds/c8y_Serial/{device_name_new}
@@ -167,7 +167,7 @@ The user has to confirm that he is really sure about that.
 
 8. New device object in C8Y will be deleted
    
-     The new device is not needed anymore. However data that was send to the platform between connecting the new device and completly replacing the device will be lost and not migrated.
+     The new device is not needed anymore. However data that was send to the platform between connecting the new device and completely replacing the device will be lost and not migrated.
 
      ```shell
      DELETE /inventory/managedObjects/{internalID_new_device}
@@ -241,7 +241,7 @@ This might change in the future and would require that all child devices need to
 
 2. No support if one device owner has multiple devices
 
-Since the device user is deleted in order to prevent the old device to re-create itself on platorm side. However in some case customers might share device users for multiple devices although this is not recommended. However to prevent bricking devices the wizard does perform the replacement as soon as it detects that the same device user is used for more than one device.
+Since the device user is deleted in order to prevent the old device to re-create itself on platform side. However in some case customers might share device users for multiple devices although this is not recommended. However to prevent bricking devices the wizard does perform the replacement as soon as it detects that the same device user is used for more than one device.
 It is also checked whether the owner is a device user and not a standard user.
 
 ![](resources/Device-user.png)
