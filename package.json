@@ -8,7 +8,8 @@
     "build": "c8ycli build",
     "build:ci": "c8ycli build --ci",
     "deploy": "c8ycli deploy",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc",
+    "prebuild": "rimraf dist"
   },
   "keywords": [],
   "author": "Software AG",
@@ -66,7 +67,8 @@
         "device-replacement-wizard-plugin": [
           "DeviceReplacementWizardModule"
         ]
-      }
+      },
+      "copy": [{ "from": "resources", "to": "resources" }]
     },
     "cli": {}
   },
